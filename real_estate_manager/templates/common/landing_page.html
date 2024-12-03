@@ -1,0 +1,23 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Welcome to Real Estate Manager{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="display-4">Welcome to Real Estate Manager</h1>
+    <p class="lead">Your one-stop solution for managing and investing in real estate.</p>
+
+    <div class="mt-4">
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-secondary btn-lg">Sign Up</a>
+    </div>
+
+    <hr class="my-4">
+
+    <h3>Features</h3>
+    <p>Manage your properties with ease.</p>
+    <p>Find the best deals and opportunities.</p>
+    <p>Track your investments and returns.</p>
+
+</div>
+{% endblock %}

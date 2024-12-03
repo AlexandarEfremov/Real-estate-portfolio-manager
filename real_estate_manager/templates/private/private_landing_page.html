@@ -1,0 +1,13 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Welcome to Your Dashboard</h2>
+            <p>This is the private landing page for registered users only.</p>
+            <p>Welcome back, {{ user.username }}!</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'common/base.html' %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>About Real Estate Manager</h1>
+            <p>Welcome to the Real Estate Manager platform! We help users manage, buy, and sell properties efficiently.</p>
+            {% if user.is_authenticated %}
+                <p class="text-success">You're logged in as <strong>{{ user.username }}</strong>. Feel free to explore our private dashboard for more features.</p>
+            {% else %}
+                <p class="text-warning">You're not logged in. <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to get full access to our features.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

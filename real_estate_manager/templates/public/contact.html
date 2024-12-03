@@ -1,0 +1,24 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Contact Us</h2>
+            {% if contact_success %}
+                <div class="alert alert-success text-center" role="alert">
+                    Thank you! Your message has been sent.
+                </div>
+            {% else %}
+                <form method="post" class="p-4 shadow-sm bg-light rounded">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
