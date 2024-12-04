@@ -4,20 +4,35 @@
 
 {% block content %}
 <div class="container text-center mt-5">
-    <h1 class="display-4">Welcome to Real Estate Manager</h1>
-    <p class="lead">Your one-stop solution for managing and investing in real estate.</p>
+    {% if user.is_authenticated %}
+        <!-- Content for logged-in users -->
+        <h1 class="display-4">Welcome back, {{ user.username }}!</h1>
+        <p class="lead">You can manage your properties, view your investments, and more.</p>
 
-    <div class="mt-4">
-        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login</a>
-        <a href="{% url 'register' %}" class="btn btn-secondary btn-lg">Sign Up</a>
-    </div>
+        <div class="mt-4">
+            <a href="{% url 'private_landing' %}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+        </div>
+        <hr class="my-4">
+        <h3>Features</h3>
+        <p>Manage your properties with ease.</p>
+        <p>Track your investments and returns.</p>
+        <p>Access detailed reports and insights.</p>
+    {% else %}
+        <!-- Content for non-logged-in users -->
+        <h1 class="display-4">Welcome to Real Estate Manager</h1>
+        <p class="lead">Your one-stop solution for managing and investing in real estate.</p>
 
-    <hr class="my-4">
+        <div class="mt-4">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-secondary btn-lg">Sign Up</a>
+        </div>
 
-    <h3>Features</h3>
-    <p>Manage your properties with ease.</p>
-    <p>Find the best deals and opportunities.</p>
-    <p>Track your investments and returns.</p>
+        <hr class="my-4">
 
+        <h3>Features</h3>
+        <p>Manage your properties with ease.</p>
+        <p>Find the best deals and opportunities.</p>
+        <p>Track your investments and returns.</p>
+    {% endif %}
 </div>
 {% endblock %}

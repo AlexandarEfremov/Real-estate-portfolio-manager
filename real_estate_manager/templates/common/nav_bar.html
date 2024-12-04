@@ -1,0 +1,54 @@
+<!-- templates/common/_navbar.html -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Real Estate Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <!-- Links for authenticated users -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'private_landing' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create_property' %}">Add Property</a>
+                    </li>
+                    <!-- Always visible for everyone (About link) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <!-- Logout (Last option for authenticated users) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);"
+                           onclick="document.getElementById('logout-form').submit();">Logout</a>
+                    </li>
+                {% else %}
+                    <!-- Links for unauthenticated users -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                    <!-- Display Contact link only for unauthenticated users -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                    <!-- Always visible for everyone (About link) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Add the logout form (hidden) -->
+<form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+    {% csrf_token %}
+</form>

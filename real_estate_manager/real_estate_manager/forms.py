@@ -8,8 +8,6 @@ class CustomUserCreationForm(UserCreationForm):
         model = get_user_model()
         fields = ('username', 'email')
 
-
-
 class ContactForm(forms.Form):
     name = forms.CharField(
         max_length=100,
@@ -21,5 +19,7 @@ class ContactForm(forms.Form):
     message = forms.CharField(
         widget=forms.Textarea(attrs={"class": "form-control", "placeholder": "Your Message", "rows": 5})
     )
+
+
 
 

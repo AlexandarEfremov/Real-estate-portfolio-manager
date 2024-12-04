@@ -1,5 +1,5 @@
 {% extends 'common/base.html' %}
-
+{% load widget_tweaks %}
 {% block title %}Contact Us{% endblock %}
 
 {% block content %}
@@ -12,9 +12,22 @@
                     Thank you! Your message has been sent.
                 </div>
             {% else %}
-                <form method="post" class="p-4 shadow-sm bg-light rounded">
+                <form method="post" class="p-4 shadow-sm rounded bg-light">
                     {% csrf_token %}
-                    {{ form.as_p }}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field|add_class:"form-control" }}
+                            {% if field.help_text %}
+                                <div class="form-text">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% if field.errors %}
+                                <div class="text-danger small">
+                                    {{ field.errors|join:", " }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                     <button type="submit" class="btn btn-primary w-100">Send Message</button>
                 </form>
             {% endif %}

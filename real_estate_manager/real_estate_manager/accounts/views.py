@@ -8,6 +8,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.mixins import AccessMixin
 
 from real_estate_manager.forms import CustomUserCreationForm, ContactForm
+from real_estate_manager.properties.models import Property
 
 
 class UserRegistrationView(CreateView):
@@ -21,6 +22,11 @@ class LandingPageView(TemplateView):
 
 class PrivateLandingPageView(LoginRequiredMixin, TemplateView):
     template_name = 'private/private_landing_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['properties'] = Property.objects.filter(owner=self.request.user)  # Fetch user's properties
+        return context
 
 class AboutPageView(TemplateView):
     template_name = "common/about.html"

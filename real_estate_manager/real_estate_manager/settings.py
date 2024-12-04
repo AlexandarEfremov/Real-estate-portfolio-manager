@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'real_estate_manager.accounts',
     "widget_tweaks",
+    'real_estate_manager.properties',
+    'real_estate_manager.tenants',
+    'real_estate_manager.finance',
 ]
 
 MIDDLEWARE = [
@@ -130,5 +133,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/private-landing/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
