@@ -2,40 +2,41 @@
 {% load widget_tweaks %}
 
 {% block content %}
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h2 class="text-center mb-4">
-                    {% if form.instance.pk %} Update Property Expense {% else %} Add Property Expense {% endif %}
-                </h2>
-                <form method="post" enctype="multipart/form-data" class="p-4 shadow-sm rounded bg-light">
-                    {% csrf_token %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">  <!-- Updated width to match Tenant, Property, and Income forms -->
+            <h2 class="text-center mb-4">
+                {% if form.instance.pk %} Update Property Expense {% else %} Add Property Expense {% endif %}
+            </h2>
+            <form method="post" enctype="multipart/form-data" class="p-4 shadow-sm rounded bg-light">
+                {% csrf_token %}
 
-                    {% for field in form %}
-                        <div class="mb-3">
-                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                            {{ field|add_class:"form-control" }}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field|add_class:"form-control" }}
 
-                            {% if field.help_text %}
-                                <div class="form-text">{{ field.help_text }}</div>
-                            {% endif %}
+                        {% if field.help_text %}
+                            <div class="form-text">{{ field.help_text }}</div>
+                        {% endif %}
 
-                            {% if field.errors %}
-                                <div class="text-danger small">
-                                    {{ field.errors|join:", " }}
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+                        {% if field.errors %}
+                            <div class="text-danger small">
+                                {{ field.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
 
-                    <button type="submit" class="btn btn-primary w-100">
-                        {% if form.instance.pk %} Update Expense {% else %} Save Expense {% endif %}
-                    </button>
-                </form>
-                <div class="mt-4 text-center">
-                    <a href="{% url 'finance:income_list' %}" class="text-primary">Back to Expense List</a>
-                </div>
+                <button type="submit" class="btn btn-primary w-100">
+                    {% if form.instance.pk %} Update Expense {% else %} Save Expense {% endif %}
+                </button>
+            </form>
+            <!-- Back Button -->
+            <div class="text-center mt-3">
+                <button class="btn btn-secondary" onclick="window.history.back();">Go Back</button>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

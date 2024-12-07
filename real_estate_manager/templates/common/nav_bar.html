@@ -13,20 +13,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'private_landing' %}">Dashboard</a>
                     </li>
+                    <!-- Display Contact link only for authenticated users -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create_property' %}">Add Property</a>
+                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'create_tenant' %}">Add Tenant</a>
-                        <!-- New link for tenants -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'finance:create_income' %}">Add Income</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'finance:create_expense' %}">Add Expense</a>
-                    </li>
-
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
@@ -42,10 +32,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'register' %}">Register</a>
-                    </li>
-                    <!-- Display Contact link only for unauthenticated users -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>

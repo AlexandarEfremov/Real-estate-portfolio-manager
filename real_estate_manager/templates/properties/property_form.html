@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">  <!-- Updated width to match the tenant form -->
             <h2 class="text-center mb-4">{% if object %}Update{% else %}Add{% endif %} Property</h2>
 
             <form method="post" enctype="multipart/form-data" class="p-4 shadow-sm rounded bg-light">
@@ -26,8 +26,9 @@
                 <button type="submit" class="btn btn-primary w-100">{% if object %}Update{% else %}Create{% endif %} Property</button>
             </form>
 
+            <!-- Back Button -->
             <div class="text-center mt-3">
-                <a href="{% url 'list_properties' %}" class="text-primary">Back to Properties</a>
+                <button class="btn btn-secondary" onclick="window.history.back();">Go Back</button>
             </div>
         </div>
     </div>

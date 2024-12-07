@@ -56,7 +56,7 @@ class VisitorOnlyMixin(AccessMixin, View):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ContactPageView(VisitorOnlyMixin, FormView):
+class ContactPageView(LoginRequiredMixin, FormView):
     template_name = "public/contact.html"
     form_class = ContactForm
     success_url = reverse_lazy("contact")

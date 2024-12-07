@@ -24,8 +24,9 @@
                     {% endfor %}
                     <button type="submit" class="btn btn-primary w-100">Save</button>
                 </form>
-                <div class="mt-4 text-center">
-                    <a href="{% url 'finance:income_list' %}" class="text-primary">Back to Tenants List</a>
+                <!-- Back Button -->
+                <div class="text-center mt-3">
+                    <button class="btn btn-secondary" onclick="window.history.back();">Go Back</button>
                 </div>
             </div>
         </div>

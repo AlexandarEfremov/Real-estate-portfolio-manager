@@ -150,7 +150,3 @@ class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('finance:expense_list')
-
-
-
-
