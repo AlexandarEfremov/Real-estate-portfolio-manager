@@ -23,6 +23,13 @@ class TenantDetailView(LoginRequiredMixin, DetailView):
         # Ensure that the tenant belongs to the logged-in user
         return Tenant.objects.filter(owner=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Add property information to context to access it in the template
+        tenant = context['tenant']
+        context['property'] = tenant.property
+        return context
+
 class CreateTenantView(LoginRequiredMixin, CreateView):
     model = Tenant
     form_class = TenantForm  # Use the custom TenantForm

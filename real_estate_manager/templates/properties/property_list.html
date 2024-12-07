@@ -24,11 +24,15 @@
                                 <!-- Property Details -->
                                 <h5 class="card-title">{{ property.name }}</h5>
                                 <p class="card-text">
-                                    <strong>Location:</strong> {{ property.address }}<br>
+                                    {% if property.tenants.exists %}
+                                        <strong>Currently Rented:</strong> Yes
+                                    {% else %}
+                                        <strong>Currently Rented:</strong> No
+                                    {% endif %}
                                 </p>
                                 <div class="mt-auto">
                                     <!-- Action Buttons -->
-                                    <a href="{% url 'property_detail' property.id %}" class="btn btn-secondary btn-sm">View
+                                    <a href="{% url 'property_detail' property.id %}" class="btn btn-primary btn-sm">View
                                         Details</a>
                                 </div>
                             </div>

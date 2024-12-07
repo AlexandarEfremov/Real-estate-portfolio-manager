@@ -24,13 +24,13 @@
                                     <strong>Lease Start Date:</strong> {{ tenant.lease_start_date }}<br>
                                     <strong>Lease End Date:</strong> {{ tenant.lease_end_date }}<br>
                                     <strong>Monthly Rent:</strong> ${{ tenant.monthly_rent }}<br>
-                                    <strong>Property:</strong> {{ tenant.property.name }}<br>
+                                    <strong>Property:</strong> <a href="{% url 'property_detail' tenant.property.id %}">{{ tenant.property.name }}</a><br>
                                 </p>
                                 <div class="mt-4 d-flex gap-2">
-                                    <a href="{% url 'tenant_edit' tenant.id %}" class="btn btn-warning">Edit</a>
-                                    <a href="{% url 'tenant_delete' tenant.id %}" class="btn btn-danger">Delete</a>
-                                    <a href="{% url 'private_landing' %}" class="btn btn-info btn-sm square-btn">Back to
+                                    <a href="{% url 'tenant_edit' tenant.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="{% url 'private_landing' %}" class="btn btn-secondary btn-sm">Back to
                                         Dashboard</a>
+                                    <a href="{% url 'tenant_delete' tenant.id %}" class="btn btn-danger btn-sm">Delete</a>
                                 </div>
                             </div>
                         </div>
