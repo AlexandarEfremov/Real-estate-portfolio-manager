@@ -9,7 +9,7 @@
             {% if incomes %}
                 <div class="list-group">
                     {% for income in incomes %}
-                        <a href="{% url 'finance:update_income' income.id %}" class="list-group-item list-group-item-action">
+                        <a href="{% url 'finance:income_detail' income.id %}" class="list-group-item list-group-item-action">
                             <div class="d-flex justify-content-between">
                                 <span>{{ income.property.name }}</span>
                                 <span class="badge bg-success">{{ income.amount|floatformat:2 }}</span>

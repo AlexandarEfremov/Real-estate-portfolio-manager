@@ -1,9 +1,11 @@
 from django.db.models import Sum
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from ..properties.models import Property
 
 
 class IncomeCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
@@ -17,12 +19,23 @@ class IncomeCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
         return None
 
     def form_valid(self, form):
-        form.instance.user = self.request.user  # Ensure the income is linked to the current user
+        # Ensure the income is linked to the current user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('finance:income_list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Pass the current user to the form so it can filter properties
+        form = context.get('form')
+        if form:
+            # We explicitly set the queryset for properties to be only those belonging to the logged-in user
+            form.fields['property'].queryset = Property.objects.filter(owner=self.request.user)
+
+        return context
 
 class ExpenseCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
     model = Expense
@@ -35,12 +48,36 @@ class ExpenseCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
         return None
 
     def form_valid(self, form):
-        form.instance.user = self.request.user  # Ensure the expense is linked to the current user
+        # Ensure the expense is linked to the current user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('finance:expense_list')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Pass the current user to the form so it can filter properties
+        form = context.get('form')
+        if form:
+            # We explicitly set the queryset for properties to be only those belonging to the logged-in user
+            form.fields['property'].queryset = Property.objects.filter(owner=self.request.user)
+
+        return context
+
+class ExpenseDetailView(DetailView):
+    model = Expense
+    template_name = 'expense/expense_details.html'
+    context_object_name = 'expense'
+
+    def get_object(self, queryset=None):
+        """
+        Override the get_object method to ensure that only expenses related
+        to the logged-in user are returned.
+        """
+        expense = get_object_or_404(Expense, pk=self.kwargs['pk'], user=self.request.user)
+        return expense
 
 # List Views
 class IncomeListView(LoginRequiredMixin, ListView):
@@ -61,6 +98,25 @@ class IncomeListView(LoginRequiredMixin, ListView):
 
         return context
 
+class IncomeDetailView(DetailView):
+    model = Income
+    template_name = 'income/income_details.html'
+    context_object_name = 'income'
+
+    def get_object(self, queryset=None):
+        income = get_object_or_404(Income, pk=self.kwargs['pk'], user=self.request.user)
+        return income
+
+class IncomeDeleteView(LoginRequiredMixin, DeleteView):
+    model = Income
+    template_name = 'income/income_confirm_delete.html'
+    context_object_name = 'income'
+    success_url = reverse_lazy('finance:income_list')  # Redirect to income list after deletion
+
+    def get_object(self, queryset=None):
+        income = get_object_or_404(Income, pk=self.kwargs['pk'], user=self.request.user)
+        return income
+
 
 class ExpenseListView(LoginRequiredMixin, ListView):
     model = Expense
@@ -79,3 +135,22 @@ class ExpenseListView(LoginRequiredMixin, ListView):
         context['total_expenses'] = total_expenses
 
         return context
+
+class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
+    model = Expense
+    template_name = 'expense/expense_confirm_delete.html'
+    context_object_name = 'expense'
+
+    def get_object(self, queryset=None):
+        """
+        Ensure that only expenses related to the logged-in user are deleted.
+        """
+        expense = get_object_or_404(Expense, pk=self.kwargs['pk'], user=self.request.user)
+        return expense
+
+    def get_success_url(self):
+        return reverse_lazy('finance:expense_list')
+
+
+
+

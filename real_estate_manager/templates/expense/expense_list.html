@@ -9,7 +9,7 @@
             {% if expenses %}
                 <div class="list-group">
                     {% for expense in expenses %}
-                        <a href="{% url 'finance:update_expense' expense.id %}" class="list-group-item list-group-item-action">
+                        <a href="{% url 'finance:expense_detail' expense.id %}" class="list-group-item list-group-item-action">
                             <div class="d-flex justify-content-between">
                                 <span>{{ expense.property.name }}</span>
                                 <span class="badge bg-danger">{{ expense.amount|floatformat:2 }}</span>
