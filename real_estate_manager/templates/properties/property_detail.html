@@ -23,13 +23,14 @@
                             <strong>Type:</strong> {{ property.property_type }}<br>
                             <strong>Size:</strong> {{ property.size }} m²<br>
                             <strong>Address:</strong> {{ property.address }}<br>
+                            <strong>Purchase Date:</strong> {{ property.purchase_date }}<br>
                             <strong>Value:</strong> ${{ property.value }}<br>
                         </p>
                         <div class="mt-4">
                             <a href="{% url 'update_property' property.id %}" class="btn btn-secondary btn-sm">Edit</a>
-                            <a href="{% url 'delete_property' property.id %}" class="btn btn-danger btn-sm">Delete</a>
-                            <a href="{% url 'private_landing' %}" class="btn btn-info btn-sm square-btn">Back to
+                            <a href="{% url 'private_landing' %}" class="btn btn-secondary btn-sm">Back to
                                 Dashboard</a>
+                            <a href="{% url 'delete_property' property.id %}" class="btn btn-danger btn-sm">Delete</a>
                         </div>
                     </div>
                 </div>
