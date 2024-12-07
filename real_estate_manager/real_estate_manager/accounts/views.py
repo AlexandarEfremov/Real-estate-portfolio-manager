@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, FormView
@@ -57,7 +58,7 @@ class VisitorOnlyMixin(AccessMixin, View):
 
 
 class ContactPageView(LoginRequiredMixin, FormView):
-    template_name = "public/contact.html"
+    template_name = "public/../../templates/private/contact.html"
     form_class = ContactForm
     success_url = reverse_lazy("contact")
 
@@ -72,3 +73,6 @@ class ContactPageView(LoginRequiredMixin, FormView):
         # Check for success flag
         context['contact_success'] = self.request.session.pop('contact_success', False)
         return context
+
+def faq(request):
+    return render(request, 'public/faq.html')

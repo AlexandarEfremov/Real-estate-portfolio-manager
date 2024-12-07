@@ -1,6 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 
+from real_estate_manager.accounts import views
 from real_estate_manager.accounts.views import UserRegistrationView, LandingPageView, PrivateLandingPageView, \
     AboutPageView, ContactPageView
 
@@ -12,4 +13,5 @@ urlpatterns = [
     path('private-landing/', PrivateLandingPageView.as_view(), name='private_landing'),
     path("about/", AboutPageView.as_view(), name="about"),
     path("contact/", ContactPageView.as_view(), name="contact"),
+    path('faq/', views.faq, name='faq'),
 ]

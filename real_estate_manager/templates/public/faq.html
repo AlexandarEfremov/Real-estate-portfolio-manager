@@ -1,0 +1,96 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Frequently Asked Questions - Real Estate Manager{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Frequently Asked Questions</h1>
+
+    <div class="accordion" id="faqAccordion">
+        <!-- Question 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    What is Real Estate Manager?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Real Estate Manager is a platform designed to help users manage their real estate investments, track income and expenses, and keep detailed records of properties and tenants.
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    How do I add a property?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To add a property, simply log in and navigate to the "Add Property" section in the dashboard. Fill in the necessary details about the property and save it to start tracking it.
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Do I need an account to use Real Estate Manager?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Yes, you need to create an account to manage your properties and track your investments. However, you can still browse the site and read general information without logging in.
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4: Adding Tenant -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    How do I add a tenant?
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To add a tenant, go to the "Add Tenant" section from your dashboard. Fill in the tenant’s details, including contact information and the property they are renting. Once saved, the tenant will be associated with the corresponding property.
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5: Adding Income -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    How do I add rental income?
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To add rental income, visit the "Add Income" section under the finance tab. You can record the income from a specific property or tenant, specifying the amount, date, and any other relevant details. This will help you track your rental returns.
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 6: Adding Expense -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSix">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    How do I add property expenses?
+                </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To add property expenses, navigate to the "Add Expense" section. Here, you can enter details about the expense, such as the amount, the property it applies to, and the date. This helps in tracking the costs associated with managing your properties.
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
