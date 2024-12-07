@@ -1,19 +1,167 @@
 {% extends 'common/base.html' %}
-
+{% load static %}
 {% block title %}About Us{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+    <div class="container mt-5">
     <div class="row">
         <div class="col-md-12 text-center">
             <h1>About Real Estate Manager</h1>
-            <p>Welcome to the Real Estate Manager platform! We help users manage their real estate portfolio efficiently.</p>
+            <p>Welcome to Real Estate Manager – your one-stop solution for managing, tracking, and growing your real
+                estate portfolio with ease.</p>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <!-- Company Mission Statement -->
+        <div class="col-md-12">
+            <h3>Our Mission</h3>
+            <p>At Real Estate Manager, our mission is to empower individuals and businesses to manage their real
+                estate investments efficiently. We aim to simplify portfolio tracking, income and expense
+                management, and property oversight, helping our users maximize returns while minimizing risks.</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Company History -->
+        <div class="col-md-12">
+            <h3>Our History</h3>
+            <p>Founded in 2020, Real Estate Manager began as a simple tool for property owners looking for a better
+                way to track rental incomes and expenses. Since then, we've evolved into a comprehensive platform
+                used by thousands of users to manage a wide range of real estate investments, from residential
+                properties to large-scale commercial ventures. We've continuously innovated to offer the best tools
+                for managing real estate portfolios.</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Core Values -->
+        <div class="col-md-12">
+            <h3>Our Core Values</h3>
+            <ul>
+                <li><strong>Integrity:</strong> We operate with honesty and transparency in all our dealings.</li>
+                <li><strong>Innovation:</strong> We constantly innovate to provide our users with the most advanced
+                    tools and features.
+                </li>
+                <li><strong>Customer Focus:</strong> Our users are at the heart of everything we do, and we aim to
+                    meet their unique needs.
+                </li>
+                <li><strong>Excellence:</strong> We strive for excellence in product quality and user experience,
+                    ensuring our platform is reliable and efficient.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Team Introduction -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h3>Meet Our Team</h3>
+                <p>Our team is made up of passionate real estate enthusiasts, tech developers, and business experts
+                    committed to making real estate management easier for everyone. Here are some of the key
+                    members:</p>
+                <div class="row">
+                    <!-- Team Member 1 -->
+                    <div class="col-md-4 text-center">
+                        <img src="{% static 'team-member2.jpg' %}" class="img-fluid rounded-circle" alt="Team Member 1"
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                        <h5>Arthur Hicks</h5>
+                        <p>CEO & Founder</p>
+                        <p>Arthur leads the company with a passion for real estate and a vision to simplify property
+                            management for investors worldwide.</p>
+                    </div>
+                    <!-- Team Member 2 -->
+                    <div class="col-md-4 text-center">
+                        <img src="{% static 'team-member1.jpg' %}" class="img-fluid rounded-circle" alt="Team Member 2"
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                        <h5>Jane Kubiak</h5>
+                        <p>Chief Product Officer</p>
+                        <p>Jane is responsible for the development of the platform’s features, ensuring they meet the
+                            needs of real estate professionals and enthusiasts alike.</p>
+                    </div>
+                    <!-- Team Member 3 -->
+                    <div class="col-md-4 text-center">
+                        <img src="{% static 'team-member3.jpg' %}" class="img-fluid rounded-circle" alt="Team Member 3"
+                             style="width: 150px; height: 150px; object-fit: cover; object-position: 20% 20%;">
+                        <h5>Samuel Petrov</h5>
+                        <p>Lead Developer</p>
+                        <p>Samuel leads the technical development team and ensures the platform runs smoothly, safely,
+                            and efficiently.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Products or Services -->
+            <div class="col-md-12">
+                <h3>Our Services</h3>
+                <p>We offer a comprehensive suite of tools designed to simplify the management of real estate
+                    portfolios:</p>
+                <ul>
+                    <li><strong>Property Management:</strong> Easily track all your properties in one place, from
+                        residential to commercial.
+                    </li>
+                    <li><strong>Income & Expense Tracking:</strong> Keep detailed records of rental income and expenses
+                        to ensure accurate accounting.
+                    </li>
+                    <li><strong>Tenant Management:</strong> Manage tenant details and payments, ensuring smooth tenant
+                        relationships.
+                    </li>
+                    <li><strong>Financial Reporting:</strong> Generate reports to assess your investment performance and
+                        make data-driven decisions.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Achievements and Recognition -->
+            <div class="col-md-12">
+                <h3>Our Achievements</h3>
+                <ul>
+                    <li>Named as a top-rated real estate management tool by Property Management Magazine in 2023.</li>
+                    <li>Recipient of the "Best Real Estate Technology Solution" award at the National Real Estate
+                        Summit, 2022.
+                    </li>
+                    <li>Over 10,000 active users globally, including property managers, real estate investors, and
+                        financial advisors.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Future Goals -->
+            <div class="col-md-12">
+                <h3>Our Future Goals</h3>
+                <p>We plan to expand our platform’s features, including AI-driven investment insights, advanced property
+                    valuation tools, and integration with more financial software to help our users grow their
+                    portfolios with even greater precision.</p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Contact Information -->
+            <div class="col-md-12">
+                <h3>Contact Us</h3>
+                <p>If you have any questions or would like to learn more about our services, please reach out to us:</p>
+                <ul>
+                    <li>Email: <a href="mailto:support@realestatemanager.com">support@realestatemanager.com</a></li>
+                    <li>Phone: +1 (800) 123-4567</li>
+                    <li>Address: 123 Real Estate St., Suite 101, New York, NY 10001</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-12 text-center">
             {% if user.is_authenticated %}
-                <p class="text-success">You're logged in as <strong>{{ user.username }}</strong>. Feel free to explore our private dashboard for more features.</p>
+                <p class="text-success">You're logged in as <strong>{{ user.username }}</strong>. Feel free to explore
+                    your personalized dashboard with exclusive features.</p>
             {% else %}
-                <p class="text-warning">You're not logged in. <a href="{% url 'login' %}">Login</a> or <a href="{% url 'register' %}">Register</a> to get full access to our features.</p>
+                <p class="text-warning">You're not logged in. <a href="{% url 'login' %}">Login</a> or <a
+                        href="{% url 'register' %}">Register</a> to unlock all the powerful tools we offer.</p>
             {% endif %}
         </div>
     </div>
-</div>
 {% endblock %}
