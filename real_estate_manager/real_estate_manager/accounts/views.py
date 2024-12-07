@@ -2,13 +2,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import View
-
 from django.views.generic import CreateView, FormView
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import AccessMixin
-
+from real_estate_manager.finance.models import Income, Expense
 from real_estate_manager.forms import CustomUserCreationForm, ContactForm
 from real_estate_manager.properties.models import Property
+from real_estate_manager.tenants.models import Tenant
 
 
 class UserRegistrationView(CreateView):
@@ -16,16 +16,28 @@ class UserRegistrationView(CreateView):
     template_name = "registration/register.html"
     success_url = reverse_lazy("login")
 
-
 class LandingPageView(TemplateView):
     template_name = 'common/landing_page.html'
+
 
 class PrivateLandingPageView(LoginRequiredMixin, TemplateView):
     template_name = 'private/private_landing_page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['properties'] = Property.objects.filter(owner=self.request.user)  # Fetch user's properties
+
+        # Fetch the properties of the current user
+        context['properties'] = Property.objects.filter(owner=self.request.user)
+
+        # Fetch tenants whose properties belong to the current user
+        context['tenants'] = Tenant.objects.filter(property__owner=self.request.user)
+
+        # Calculate total income associated with the user
+        context['total_income'] = sum([income.amount for income in Income.objects.filter(user=self.request.user)])
+
+        # Calculate total expenses associated with the user
+        context['total_expenses'] = sum([expense.amount for expense in Expense.objects.filter(user=self.request.user)])
+
         return context
 
 class AboutPageView(TemplateView):

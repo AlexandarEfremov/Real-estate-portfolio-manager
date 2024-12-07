@@ -5,8 +5,7 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-center mb-4">{% if object %}Update{% else %}Add{% endif %} Property</h2>
-
+            <h2 class="text-center mb-4">Add Rental Income</h2>
             <form method="post" enctype="multipart/form-data" class="p-4 shadow-sm rounded bg-light">
                 {% csrf_token %}
                 {% for field in form %}
@@ -23,12 +22,8 @@
                         {% endif %}
                     </div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary w-100">{% if object %}Update{% else %}Create{% endif %} Property</button>
+                <button type="submit" class="btn btn-primary w-100">Save Income</button>
             </form>
-
-            <div class="text-center mt-3">
-                <a href="{% url 'list_properties' %}" class="text-primary">Back to Properties</a>
-            </div>
         </div>
     </div>
 </div>

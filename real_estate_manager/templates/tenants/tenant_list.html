@@ -1,0 +1,30 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">List of Tenants</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Property</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tenant in tenants %}
+                <tr>
+                    <td>{{ tenant.first_name }} {{ tenant.last_name }}</td>
+                    <td>{{ tenant.property.name }}</td>
+                    <td>
+                        <a href="{% url 'tenant_detail' tenant.id %}" class="btn btn-info btn-sm">View</a>
+                        <a href="{% url 'tenant_edit' tenant.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'tenant_delete' tenant.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'create_tenant' %}" class="btn btn-primary">Create New Tenant</a>
+</div>
+{% endblock %}

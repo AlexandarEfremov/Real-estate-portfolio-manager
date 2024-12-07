@@ -24,7 +24,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("real_estate_manager.accounts.urls")),
     path("properties/", include("real_estate_manager.properties.urls")),
+    path('tenants/', include('real_estate_manager.tenants.urls')),
+    # Income URLs (for income related views)
+    path('finance/', include('real_estate_manager.finance.urls')),
+
 ]
 
-if settings.DEBUG: #TODO check if stage is correct
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

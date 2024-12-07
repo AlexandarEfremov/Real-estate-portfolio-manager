@@ -1,0 +1,16 @@
+{% extends 'common/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Confirm Deletion</h2>
+
+    <p>Are you sure you want to delete the property "{{ object.name }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete it</button>
+        <a href="{% url 'list_properties' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

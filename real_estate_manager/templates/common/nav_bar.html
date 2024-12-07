@@ -1,5 +1,4 @@
 <!-- templates/common/_navbar.html -->
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Real Estate Manager</a>
@@ -17,7 +16,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'create_property' %}">Add Property</a>
                     </li>
-                    <!-- Always visible for everyone (About link) -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'create_tenant' %}">Add Tenant</a>
+                        <!-- New link for tenants -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'finance:create_income' %}">Add Income</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'finance:create_expense' %}">Add Expense</a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
@@ -38,7 +47,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                     </li>
-                    <!-- Always visible for everyone (About link) -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>

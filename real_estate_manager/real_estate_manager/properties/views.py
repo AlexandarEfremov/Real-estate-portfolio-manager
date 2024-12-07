@@ -1,18 +1,60 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView
+from .models import Property
 from .forms import PropertyForm
 
-@login_required
-def create_property(request):
-    if request.method == 'POST':
-        form = PropertyForm(request.POST, request.FILES)
-        if form.is_valid():
-            property = form.save(commit=False)
-            property.owner = request.user
-            property.save()
-            return redirect('private_landing')
-    else:
-        form = PropertyForm()
 
-    return render(request, 'properties/property_form.html', {'form': form})
+# Property List View (CBV)
+class PropertyListView(ListView):
+    model = Property
+    template_name = 'properties/property_list.html'
+    context_object_name = 'properties'
+
+    def get_queryset(self):
+        return Property.objects.filter(owner=self.request.user)  # Ensure properties belong to the logged-in user
+
+
+# Property Create View (CBV)
+class PropertyCreateView(CreateView):
+    model = Property
+    form_class = PropertyForm
+    template_name = 'properties/property_form.html'
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user  # Assign the logged-in user as the owner
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('list_properties')  # Redirect to the property list after successful creation
+
+
+# Property Update View (CBV)
+class PropertyUpdateView(UpdateView):
+    model = Property
+    form_class = PropertyForm
+    template_name = 'properties/property_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('list_properties')  # Redirect to the property list after successful update
+
+
+# Property Delete View (CBV)
+class PropertyDeleteView(DeleteView):
+    model = Property
+    template_name = 'properties/property_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('list_properties')  # Redirect to the property list after successful deletion
+
+
+class PropertyDetailView(DetailView):
+    model = Property
+    template_name = 'properties/property_detail.html'
+    context_object_name = 'property'
+
+    def get_object(self, queryset=None):
+        # Retrieve the property by its pk, assuming it's owned by the logged-in user
+        return get_object_or_404(Property, pk=self.kwargs['pk'])
 

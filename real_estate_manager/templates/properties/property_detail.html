@@ -1,0 +1,37 @@
+{% extends 'common/base.html' %}
+
+{% block title %}Property Details{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Property Details</h2>
+
+    <div class="card">
+        <div class="row g-0">
+            <!-- Image Column -->
+            <div class="col-md-4">
+                {% if property.image %}
+                    <img src="{{ property.image.url }}" class="card-img-top" alt="Image of {{ property.name }}" style="width: 100%; height: 300px; object-fit: cover;">
+                {% endif %}
+            </div>
+            <!-- Details and Options Column -->
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.name }}</h5>
+                    <p class="card-text">
+                        <strong>Type:</strong> {{ property.property_type }}<br>
+                        <strong>Size:</strong> {{ property.size }} m²<br>
+                        <strong>Address:</strong> {{ property.address }}<br>
+                        <strong>Value:</strong> ${{ property.value }}<br>
+                    </p>
+                    <div class="mt-4">
+                        <a href="{% url 'update_property' property.id %}" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="{% url 'delete_property' property.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{% url 'list_properties' %}" class="btn btn-primary btn-sm">Back to Properties</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
