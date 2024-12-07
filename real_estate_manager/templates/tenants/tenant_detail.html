@@ -2,40 +2,44 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Tenant Details</h2>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        {% if tenant.image %}
-                            <img src="{{ tenant.image.url }}" class="img-fluid rounded-circle" alt="Tenant Image">
-                        {% else %}
-                            <img src="{% static 'default-profile.jpg' %}" class="img-fluid rounded-circle" alt="No Image">
-                        {% endif %}
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ tenant.first_name }} {{ tenant.last_name }}</h5>
-                            <p class="card-text">
-                                <strong>Contact Information:</strong> {{ tenant.contact_info }}<br>
-                                <strong>Lease Start Date:</strong> {{ tenant.lease_start_date }}<br>
-                                <strong>Lease End Date:</strong> {{ tenant.lease_end_date }}<br>
-                                <strong>Monthly Rent:</strong> ${{ tenant.monthly_rent }}<br>
-                                <strong>Property:</strong> {{ tenant.property.name }}<br>
-                            </p>
-                            <div class="mt-4 d-flex gap-2">
-                                <a href="{% url 'tenant_edit' tenant.id %}" class="btn btn-warning">Edit</a>
-                                <a href="{% url 'tenant_delete' tenant.id %}" class="btn btn-danger">Delete</a>
-                                <a href="{% url 'list_tenants' %}" class="btn btn-primary btn-sm square-btn">Back to Tenants</a>
-                                <a href="{% url 'private_landing' %}" class="btn btn-info btn-sm square-btn">Back to Dashboard</a>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Tenant Details</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            {% if tenant.image %}
+                                <img src="{{ tenant.image.url }}" class="img-fluid rounded-circle" alt="Tenant Image">
+                            {% else %}
+                                <img src="{% static 'default-profile.jpg' %}" class="img-fluid rounded-circle"
+                                     alt="No Image">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ tenant.first_name }} {{ tenant.last_name }}</h5>
+                                <p class="card-text">
+                                    <strong>Contact Information:</strong> {{ tenant.contact_info }}<br>
+                                    <strong>Lease Start Date:</strong> {{ tenant.lease_start_date }}<br>
+                                    <strong>Lease End Date:</strong> {{ tenant.lease_end_date }}<br>
+                                    <strong>Monthly Rent:</strong> ${{ tenant.monthly_rent }}<br>
+                                    <strong>Property:</strong> {{ tenant.property.name }}<br>
+                                </p>
+                                <div class="mt-4 d-flex gap-2">
+                                    <a href="{% url 'tenant_edit' tenant.id %}" class="btn btn-warning">Edit</a>
+                                    <a href="{% url 'tenant_delete' tenant.id %}" class="btn btn-danger">Delete</a>
+                                    <a href="{% url 'private_landing' %}" class="btn btn-info btn-sm square-btn">Back to
+                                        Dashboard</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="mt-4 text-center">
+            <a href="{% url 'list_tenants' %}" class="text-primary">Back to Tenants</a>
+        </div>
     </div>
-</div>
 {% endblock %}

@@ -1,17 +1,17 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center mb-4">List of Tenants</h2>
-    <table class="table">
-        <thead>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">List of Tenants</h2>
+        <table class="table">
+            <thead>
             <tr>
                 <th>Name</th>
                 <th>Property</th>
                 <th>Action</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for tenant in tenants %}
                 <tr>
                     <td>{{ tenant.first_name }} {{ tenant.last_name }}</td>
@@ -23,8 +23,11 @@
                     </td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'create_tenant' %}" class="btn btn-primary">Create New Tenant</a>
-</div>
+            </tbody>
+        </table>
+        <a href="{% url 'create_tenant' %}" class="btn btn-primary">Create New Tenant</a>
+        <div class="d-flex justify-content-center mt-4">
+            <a href="{% url 'private_landing' %}" class="text-primary">Return to Dashboard</a>
+        </div>
+    </div>
 {% endblock %}
