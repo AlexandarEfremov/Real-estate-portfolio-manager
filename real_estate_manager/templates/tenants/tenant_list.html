@@ -1,33 +1,42 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">List of Tenants</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">List of Tenants</h2>
+
+    {% if tenants.exists %}
         <table class="table">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th>Property</th>
-                <th>Action</th>
-            </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Property</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
-            {% for tenant in tenants %}
-                <tr>
-                    <td>{{ tenant.first_name }} {{ tenant.last_name }}</td>
-                    <td>{{ tenant.property.name }}</td>
-                    <td>
-                        <a href="{% url 'tenant_detail' tenant.id %}" class="btn btn-info btn-sm">View</a>
-                        <a href="{% url 'tenant_edit' tenant.id %}" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="{% url 'tenant_delete' tenant.id %}" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-            {% endfor %}
+                {% for tenant in tenants %}
+                    <tr>
+                        <td>{{ tenant.first_name }} {{ tenant.last_name }}</td>
+                        <td>{{ tenant.property.name }}</td>
+                        <td>
+                            <a href="{% url 'tenant_detail' tenant.id %}" class="btn btn-info btn-sm">View</a>
+                            <a href="{% url 'tenant_edit' tenant.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'tenant_delete' tenant.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
-        <a href="{% url 'create_tenant' %}" class="btn btn-primary">Create New Tenant</a>
-        <div class="d-flex justify-content-center mt-4">
-            <a href="{% url 'private_landing' %}" class="text-primary">Return to Dashboard</a>
+    {% else %}
+        <!-- No Tenants Message -->
+        <div class="text-center mt-4">
+            <p class="text-muted">You don't have any tenants yet.</p>
+            <a href="{% url 'create_tenant' %}" class="btn btn-secondary">Add Tenant</a>
         </div>
+    {% endif %}
+    
+    <div class="d-flex justify-content-center mt-4">
+        <a href="{% url 'private_landing' %}" class="text-primary">Return to Dashboard</a>
     </div>
+</div>
 {% endblock %}

@@ -24,8 +24,7 @@
                                 <!-- Property Details -->
                                 <h5 class="card-title">{{ property.name }}</h5>
                                 <p class="card-text">
-                                    <strong>Location:</strong> {{ property.location }}<br>
-                                    <strong>Price:</strong> ${{ property.price }}
+                                    <strong>Location:</strong> {{ property.address }}<br>
                                 </p>
                                 <div class="mt-auto">
                                     <!-- Action Buttons -->
@@ -41,7 +40,10 @@
             </div>
         {% else %}
             <!-- No Properties Message -->
-            <p class="text-muted text-center">You don't have any properties yet.</p>
+            <div class="text-center mt-4">
+                <p class="text-muted">You don't have any properties yet.</p>
+                <a href="{% url 'create_property' %}" class="btn btn-secondary">Add Property</a>
+            </div>
         {% endif %}
 
         <!-- Return to Dashboard Button -->
