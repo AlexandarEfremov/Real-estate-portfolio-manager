@@ -1,6 +1,5 @@
 from django.urls import path
-from . import views
-from .views import ListTenantsView, TenantDetailView, TenantEditView, TenantDeleteView, CreateTenantView
+from .views import ListTenantsView, TenantDetailView, TenantEditView, TenantDeleteView, CreateTenantView, ProjectedIncomeView
 
 urlpatterns = [
     path('', ListTenantsView.as_view(), name='list_tenants'),
@@ -8,4 +7,5 @@ urlpatterns = [
     path('<int:pk>/', TenantDetailView.as_view(), name='tenant_detail'),
     path('edit/<int:pk>/', TenantEditView.as_view(), name='tenant_edit'),
     path('delete/<int:pk>/', TenantDeleteView.as_view(), name='tenant_delete'),
+    path('tenant/<int:pk>/projected_income/', ProjectedIncomeView.as_view(), name='tenant_projected_income'),
 ]

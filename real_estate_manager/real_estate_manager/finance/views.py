@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -5,7 +7,7 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, D
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from ..properties.models import Property
+from ..tenants.models import Tenant
 
 
 class IncomeCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
@@ -15,12 +17,11 @@ class IncomeCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
 
     def get_object(self, queryset=None):
         if self.kwargs.get('income_id'):
-            return Income.objects.get(id=self.kwargs['income_id'])
+            return Income.objects.get(id=self.kwargs['income_id'], user=self.request.user)
         return None
 
     def form_valid(self, form):
-        # Ensure the income is linked to the current user
-        form.instance.user = self.request.user
+        form.instance.user = self.request.user  # Ensure income is linked to logged-in user
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -28,14 +29,10 @@ class IncomeCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Pass the current user to the form so it can filter properties
-        form = context.get('form')
-        if form:
-            # We explicitly set the queryset for properties to be only those belonging to the logged-in user
-            form.fields['property'].queryset = Property.objects.filter(owner=self.request.user)
-
+        if 'form' in context:
+            context['form'].fields['tenant'].queryset = Tenant.objects.filter(owner=self.request.user)
         return context
+
 
 class ExpenseCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
     model = Expense
@@ -44,12 +41,11 @@ class ExpenseCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
 
     def get_object(self, queryset=None):
         if self.kwargs.get('expense_id'):
-            return Expense.objects.get(id=self.kwargs['expense_id'])
+            return Expense.objects.get(id=self.kwargs['expense_id'], user=self.request.user)
         return None
 
     def form_valid(self, form):
-        # Ensure the expense is linked to the current user
-        form.instance.user = self.request.user
+        form.instance.user = self.request.user  # Ensure expense is linked to logged-in user
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -57,14 +53,10 @@ class ExpenseCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Pass the current user to the form so it can filter properties
-        form = context.get('form')
-        if form:
-            # We explicitly set the queryset for properties to be only those belonging to the logged-in user
-            form.fields['property'].queryset = Property.objects.filter(owner=self.request.user)
-
+        if 'form' in context:
+            context['form'].fields['tenant'].queryset = Tenant.objects.filter(owner=self.request.user)
         return context
+
 
 class ExpenseDetailView(DetailView):
     model = Expense
@@ -72,50 +64,62 @@ class ExpenseDetailView(DetailView):
     context_object_name = 'expense'
 
     def get_object(self, queryset=None):
-        """
-        Override the get_object method to ensure that only expenses related
-        to the logged-in user are returned.
-        """
-        expense = get_object_or_404(Expense, pk=self.kwargs['pk'], user=self.request.user)
-        return expense
+        """Ensure only expenses related to the logged-in user are returned."""
+        return get_object_or_404(Expense, pk=self.kwargs['pk'], user=self.request.user)
 
-# List Views
+
+from django.db.models import Sum
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+from .models import Income
+
 class IncomeListView(LoginRequiredMixin, ListView):
     model = Income
     template_name = 'income/income_list.html'
-    context_object_name = 'incomes'
+    context_object_name = 'tenant_incomes'
 
     def get_queryset(self):
-        # Filter income records by the logged-in user
+        # Fetch all income records for the logged-in user
         return Income.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Calculate total income
-        total_income = Income.objects.filter(user=self.request.user).aggregate(total=Sum('amount'))['total'] or 0
-        context['total_income'] = total_income
+        # Fetch tenants whose properties belong to the current user
+        tenants = Tenant.objects.filter(property__owner=self.request.user)
+
+        total_projected_income = Decimal(0)
+
+        # Loop through tenants and calculate their projected income
+        for tenant in tenants:
+            lease_start = tenant.lease_start_date
+            lease_end = tenant.lease_end_date
+
+            # Calculate total days in the lease
+            lease_duration = lease_end - lease_start
+            total_days = lease_duration.days
+
+            # Calculate daily rent (divide by 30 for simplicity)
+            daily_rent = Decimal(tenant.monthly_rent) / Decimal(30)
+
+            # Add the projected income for this tenant
+            projected_income = daily_rent * Decimal(total_days)
+            total_projected_income += projected_income
+
+        # Add to the context the total projected income for the user
+        context['total_income'] = total_projected_income
 
         return context
 
-class IncomeDetailView(DetailView):
-    model = Income
-    template_name = 'income/income_details.html'
-    context_object_name = 'income'
-
-    def get_object(self, queryset=None):
-        income = get_object_or_404(Income, pk=self.kwargs['pk'], user=self.request.user)
-        return income
 
 class IncomeDeleteView(LoginRequiredMixin, DeleteView):
     model = Income
     template_name = 'income/income_confirm_delete.html'
     context_object_name = 'income'
-    success_url = reverse_lazy('finance:income_list')  # Redirect to income list after deletion
+    success_url = reverse_lazy('finance:income_list')
 
     def get_object(self, queryset=None):
-        income = get_object_or_404(Income, pk=self.kwargs['pk'], user=self.request.user)
-        return income
+        return get_object_or_404(Income, pk=self.kwargs['pk'], user=self.request.user)
 
 
 class ExpenseListView(LoginRequiredMixin, ListView):
@@ -124,17 +128,18 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     context_object_name = 'expenses'
 
     def get_queryset(self):
-        # Filter expense records by the logged-in user
+        # Filter expense records for the logged-in user
         return Expense.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         # Calculate total expenses
-        total_expenses = Expense.objects.filter(user=self.request.user).aggregate(total=Sum('amount'))['total'] or 0
+        total_expenses = context['expenses'].aggregate(total=Sum('amount'))['total'] or 0
         context['total_expenses'] = total_expenses
 
         return context
+
 
 class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     model = Expense
@@ -142,11 +147,8 @@ class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     context_object_name = 'expense'
 
     def get_object(self, queryset=None):
-        """
-        Ensure that only expenses related to the logged-in user are deleted.
-        """
-        expense = get_object_or_404(Expense, pk=self.kwargs['pk'], user=self.request.user)
-        return expense
+        """Ensure only expenses related to the logged-in user are deleted."""
+        return get_object_or_404(Expense, pk=self.kwargs['pk'], user=self.request.user)
 
     def get_success_url(self):
         return reverse_lazy('finance:expense_list')

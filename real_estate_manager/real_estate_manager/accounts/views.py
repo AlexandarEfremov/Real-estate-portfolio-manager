@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.contrib import messages
@@ -45,6 +47,8 @@ class LandingPageView(TemplateView):
     template_name = 'common/landing_page.html'
 
 
+from django.db.models import Sum
+
 class PrivateLandingPageView(LoginRequiredMixin, TemplateView):
     template_name = 'private/private_landing_page.html'
 
@@ -57,8 +61,26 @@ class PrivateLandingPageView(LoginRequiredMixin, TemplateView):
         # Fetch tenants whose properties belong to the current user
         context['tenants'] = Tenant.objects.filter(property__owner=self.request.user)
 
-        # Calculate total income associated with the user
-        context['total_income'] = sum([income.amount for income in Income.objects.filter(user=self.request.user)])
+        total_projected_income = Decimal(0)
+
+        # Loop through tenants and calculate their projected income
+        for tenant in context['tenants']:
+            lease_start = tenant.lease_start_date
+            lease_end = tenant.lease_end_date
+
+            # Calculate total days in the lease
+            lease_duration = lease_end - lease_start
+            total_days = lease_duration.days
+
+            # Calculate daily rent (divide by 30 for simplicity)
+            daily_rent = Decimal(tenant.monthly_rent) / Decimal(30)
+
+            # Add the projected income for this tenant
+            projected_income = daily_rent * Decimal(total_days)
+            total_projected_income += projected_income
+
+        # Add to the context the total projected income for the user
+        context['total_projected_income'] = total_projected_income
 
         # Calculate total expenses associated with the user
         context['total_expenses'] = sum([expense.amount for expense in Expense.objects.filter(user=self.request.user)])

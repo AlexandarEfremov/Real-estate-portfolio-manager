@@ -5,8 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <h2 class="text-center mb-4">Welcome to Your Dashboard</h2>
-                <p class="text-center">Manage your real estate portfolio, tenants, and financial records all in one
-                    place.</p>
+                <p class="text-center">Manage your real estate portfolio, tenants, and financial records all in one place.</p>
 
                 <!-- Portfolio Summary -->
                 <div class="row mb-4">
@@ -31,8 +30,8 @@
                     <div class="col-md-3 d-flex">
                         <div class="card text-center w-100 h-100">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Total Income</h5>
-                                <p class="display-4">${{ total_income|floatformat:2 }}</p>
+                                <h5 class="card-title">Projected Income</h5>
+                                <p class="display-4">${{ total_projected_income|floatformat:2 }}</p>
                                 <a href="{% url 'finance:income_list' %}"
                                    class="btn btn-primary btn-sm mt-auto">View</a>
                             </div>

@@ -1,6 +1,5 @@
 from django import forms
 from .models import Tenant
-from real_estate_manager.properties.models import Property
 
 class TenantForm(forms.ModelForm):
     class Meta:
@@ -27,10 +26,14 @@ class TenantForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        # Capture the 'user' argument passed to the form
-        user = kwargs.pop('user')  # Capture the 'user' argument if it's passed
+        """
+        Custom initialization to filter the properties available to the current user.
+        """
+        # Get the user argument from kwargs
+        user = kwargs.pop('user')  # Default to None if 'user' is not passed
+
         super().__init__(*args, **kwargs)
 
+        # If the user is provided, filter the properties queryset
         if user:
-            # Filter the properties to show only the ones owned by the user
             self.fields['property'].queryset = user.properties.all()
