@@ -1,5 +1,4 @@
 from decimal import Decimal
-
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -66,12 +65,6 @@ class ExpenseDetailView(DetailView):
     def get_object(self, queryset=None):
         """Ensure only expenses related to the logged-in user are returned."""
         return get_object_or_404(Expense, pk=self.kwargs['pk'], user=self.request.user)
-
-
-from django.db.models import Sum
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
-from .models import Income
 
 class IncomeListView(LoginRequiredMixin, ListView):
     model = Income
