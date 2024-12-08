@@ -6,6 +6,8 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, D
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from ..properties.models import Property
 from ..tenants.models import Tenant
 
 
@@ -53,7 +55,9 @@ class ExpenseCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if 'form' in context:
+            # Pass the current user to the form so that it filters the tenants and properties accordingly
             context['form'].fields['tenant'].queryset = Tenant.objects.filter(owner=self.request.user)
+            context['form'].fields['property'].queryset = Property.objects.filter(owner=self.request.user)
         return context
 
 
