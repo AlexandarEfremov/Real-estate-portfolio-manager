@@ -8,6 +8,15 @@
             <h2 class="text-center mb-4">Login</h2>
             <form method="post" class="p-4 shadow-sm rounded bg-light">
                 {% csrf_token %}
+                {% if messages %}
+                    <div class="mb-3">
+                        {% for message in messages %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <div class="mb-3">
                     <label for="id_username" class="form-label">Username:</label>
                     {{ form.username|add_class:"form-control" }}
