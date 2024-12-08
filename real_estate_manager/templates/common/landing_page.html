@@ -3,65 +3,56 @@
 {% block title %}Welcome to Real Estate Manager{% endblock %}
 
 {% block content %}
-    <div class="container text-center mt-5">
+    <div class="container-fluid p-0 d-flex flex-column" style="height: 100%; overflow-x: hidden;">
         {% if user.is_authenticated %}
-            <!-- Content for logged-in users -->
-            <h1 class="display-4">Welcome back, {{ user.username }}!</h1>
-            <p class="lead">You can manage your properties, view your investments, and more.</p>
+            <div class="container text-center mt-5">
+                <!-- Content for logged-in users -->
+                <h1 class="display-4 mb-3">Welcome back, {{ user.username }}!</h1>
+                <p class="lead mb-4">You can manage your properties, view your investments, and more.</p>
 
-            <div class="row">
-                <!-- Image Section: Left side -->
-                <div class="col-md-6 d-flex justify-content-center align-items-center">
-                    <img src="{% static 'chart-default.jpg' %}" class="card-img-top img-fluid"
-                         alt="No Image Available" style="max-width: 80%; height: auto;">
-                </div>
-
-                <!-- Options Section: Right side -->
-                <div class="col-md-6 d-flex flex-column justify-content-start align-items-start">
-                    <!-- Button list -->
-                    <div class="list-group mt-4">
-                        <!-- Go to Dashboard Button (Blue) -->
-                        <a href="{% url 'private_landing' %}" class="btn btn-primary mb-2">
-                            Go to Dashboard
-                        </a>
-                        <!-- Other Buttons -->
-                        <a href="{% url 'create_property' %}" class="btn btn-outline-primary mb-2">
-                            Add Property
-                        </a>
-                        <a href="{% url 'create_tenant' %}" class="btn btn-outline-primary mb-2">
-                            Add Tenant
-                        </a>
-                        <a href="{% url 'finance:create_expense' %}" class="btn btn-outline-primary mb-2">
-                            Add Expense
-                        </a>
+                <div class="row d-flex flex-column align-items-center">
+                    <!-- Options Section -->
+                    <div class="col-md-6">
+                        <div class="list-group">
+                            <a href="{% url 'private_landing' %}" class="btn btn-primary mb-3">
+                                Go to Dashboard
+                            </a>
+                            <a href="{% url 'create_property' %}" class="btn btn-outline-primary mb-3">
+                                Add Property
+                            </a>
+                            <a href="{% url 'create_tenant' %}" class="btn btn-outline-primary mb-3">
+                                Add Tenant
+                            </a>
+                            <a href="{% url 'finance:create_expense' %}" class="btn btn-outline-primary mb-3">
+                                Add Expense
+                            </a>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
-            <hr class="my-4">
         {% else %}
-            <!-- Content for non-logged-in users -->
-            <h1 class="display-4">Welcome to Real Estate Manager</h1>
-            <p class="lead">Your one-stop solution for managing and investing in real estate.</p>
-            <div class="row d-flex justify-content-center align-items-center">
-                <div class="col-md-6 d-flex justify-content-center">
-                    <img src="{% static 'neighbourhood.jpg' %}" class="card-img-top img-fluid"
-                         alt="No Image Available" style="max-width: 100%; height: auto;">
+            <div class="container text-center mt-5">
+                <!-- Content for non-logged-in users -->
+                <h1 class="display-4">Welcome to Real Estate Manager</h1>
+                <p class="lead">Your one-stop solution for managing your real estate portfolio.</p>
+
+                <div class="row d-flex flex-column align-items-center">
+                    <!-- Options Section -->
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login</a>
+                            <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">Sign Up</a>
+                        </div>
+                    </div>
+
+                    <!-- Image Section -->
+                    <div class="col-md-6 mt-4">
+    <img src="{% static 'neighbourhood.jpg' %}" class="img-fluid" alt="No Image Available" style="width: 76%; height: 76%; object-fit: cover;">
+</div>
+
                 </div>
             </div>
-
-            <div class="mt-4">
-                <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login</a>
-                <a href="{% url 'register' %}" class="btn btn-secondary btn-lg">Sign Up</a>
-            </div>
-
-            <hr class="my-4">
-
-            <h3>Features</h3>
-            <p>Manage your properties with ease.</p>
-            <p>Find the best opportunities for growth in your portfolio.</p>
-            <p>Track your investments and returns.</p>
         {% endif %}
+        <br>
     </div>
 {% endblock %}

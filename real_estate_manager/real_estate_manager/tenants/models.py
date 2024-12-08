@@ -1,10 +1,5 @@
 from decimal import Decimal
 from django.db import models
-from django.core.exceptions import ValidationError
-from datetime import timedelta
-
-from django.utils import timezone
-
 from real_estate_manager.finance.models import Income  # Import Income model
 
 class Tenant(models.Model):
