@@ -26,6 +26,13 @@
                             <a href="{% url 'finance:create_expense' %}" class="btn btn-outline-primary mb-3">
                                 Add Expense
                             </a>
+                            
+                            <!-- Admin Button -->
+                            {% if user.is_superuser %}
+                                <a href="{% url 'admin:index' %}" class="btn btn-secondary mb-3">
+                                    Admin Dashboard
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -47,9 +54,8 @@
 
                     <!-- Image Section -->
                     <div class="col-md-6 mt-4">
-    <img src="{% static 'neighbourhood.jpg' %}" class="img-fluid" alt="No Image Available" style="width: 76%; height: 76%; object-fit: cover;">
-</div>
-
+                        <img src="{% static 'neighbourhood.jpg' %}" class="img-fluid" alt="No Image Available" style="width: 76%; height: 76%; object-fit: cover;">
+                    </div>
                 </div>
             </div>
         {% endif %}
