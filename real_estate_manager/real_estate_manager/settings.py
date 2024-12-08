@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'real_estate_manager.properties',
     'real_estate_manager.tenants',
     'real_estate_manager.finance',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [

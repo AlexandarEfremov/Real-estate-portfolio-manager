@@ -16,6 +16,7 @@ class Property(models.Model):
     value = models.DecimalField(max_digits=12, decimal_places=2)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='properties')
     image = models.ImageField(upload_to="property_images/", blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.name} ({self.property_type})"

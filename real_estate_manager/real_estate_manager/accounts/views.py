@@ -26,7 +26,13 @@ class UserRegistrationView(CreateView):
     """Handles user registration with a custom form."""
     form_class = CustomUserCreationForm
     template_name = "registration/register.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("register")  # Stay on the same page after registration
+
+    def form_valid(self, form):
+        """Handle successful registration."""
+        user = form.save()  # Save the new user
+        messages.success(self.request, f"Registration successful! Welcome, {user.username}. You can now log in.")
+        return self.render_to_response(self.get_context_data(success=True, username=user.username))
 
     def form_invalid(self, form):
         """Override to add error messages for registration."""

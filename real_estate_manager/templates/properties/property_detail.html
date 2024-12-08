@@ -1,5 +1,5 @@
 {% extends 'common/base.html' %}
-
+{% load humanize %}
 {% block title %}Property Details{% endblock %}
 
 {% block content %}
@@ -26,7 +26,7 @@
                             <strong>Size:</strong> {{ property.size }} m²<br>
                             <strong>Address:</strong> {{ property.address }}<br>
                             <strong>Purchase Date:</strong> {{ property.purchase_date }}<br>
-                            <strong>Value:</strong> ${{ property.value }}<br>
+                            <strong>Value:</strong> ${{ property.value|intcomma }}<br>
                         </p>
 
                         <!-- Currently Renting Section -->

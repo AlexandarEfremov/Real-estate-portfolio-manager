@@ -5,17 +5,6 @@ from django.views.generic import DetailView
 from .models import Property
 from .forms import PropertyForm
 
-
-# Property List View (CBV)
-class PropertyListView(ListView):
-    model = Property
-    template_name = 'properties/property_list.html'
-    context_object_name = 'properties'
-
-    def get_queryset(self):
-        return Property.objects.filter(owner=self.request.user)  # Ensure properties belong to the logged-in user
-
-
 # Property Create View (CBV)
 class PropertyCreateView(CreateView):
     model = Property
@@ -29,6 +18,13 @@ class PropertyCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('list_properties')  # Redirect to the property list after successful creation
 
+class PropertyListView(ListView):
+    model = Property
+    template_name = 'properties/property_list.html'
+    context_object_name = 'properties'
+
+    def get_queryset(self):
+        return Property.objects.filter(owner=self.request.user).order_by('created_at')
 
 # Property Update View (CBV)
 class PropertyUpdateView(UpdateView):

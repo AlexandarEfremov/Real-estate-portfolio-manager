@@ -1,6 +1,6 @@
 {% extends 'common/base.html' %}
 {% load static %}
-
+{% load humanize %}
 {% block content %}
     <div class="container mt-5">
         <h2 class="text-center mb-4">Tenant Details</h2>
@@ -23,7 +23,7 @@
                                     <strong>Contact Information:</strong> {{ tenant.contact_info }}<br>
                                     <strong>Lease Start Date:</strong> {{ tenant.lease_start_date }}<br>
                                     <strong>Lease End Date:</strong> {{ tenant.lease_end_date }}<br>
-                                    <strong>Monthly Rent:</strong> ${{ tenant.monthly_rent }}<br>
+                                    <strong>Monthly Rent:</strong> ${{ tenant.monthly_rent|intcomma }}<br>
                                     <strong>Property:</strong> <a href="{% url 'property_detail' tenant.property.id %}">{{ tenant.property.name }}</a><br>
                                 </p>
                                 <div class="mt-4 d-flex gap-2">

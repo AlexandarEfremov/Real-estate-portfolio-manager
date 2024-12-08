@@ -5,25 +5,21 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2 class="text-center mb-4">Confirm Deletion</h2>
-            <div class="card p-4 shadow-sm rounded bg-light">
-                <h5 class="card-title">{{ income.property.name }}</h5>
-                <p><strong>Amount:</strong> ${{ income.amount|floatformat:2 }}</p>
-                <p><strong>Date Received:</strong> {{ income.date }}</p>
-                <p><strong>Description:</strong> {{ income.description }}</p>
-
-                <div class="mt-4 d-flex gap-2">
-                    <form method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger btn-sm">Yes, delete</button>
-                    </form>
-                    <a href="{% url 'finance:income_list' %}" class="btn btn-primary btn-sm">Cancel</a>
+            <h2 class="text-center mb-4">Are you sure you want to delete this income record?</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ income.property.name }}</h5>
+                    <p><strong>Amount:</strong> ${{ income.amount|floatformat:2 }}</p>
+                    <p><strong>Date Received:</strong> {{ income.date }}</p>
+                    <p><strong>Description:</strong> {{ income.description }}</p>
                 </div>
             </div>
-            
-            <div class="mt-4 text-center">
-                <a href="{% url 'finance:income_list' %}" class="text-primary">Back to Income List</a>
-            </div>
+
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger w-100">Delete Income</button>
+            </form>
+            <a href="{% url 'finance:income_list' %}" class="btn btn-secondary w-100 mt-2">Cancel</a>
         </div>
     </div>
 </div>
