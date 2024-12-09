@@ -13,7 +13,7 @@
                         <div class="card text-center w-100 h-100">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Properties</h5>
-                                <p class="display-4">{{ properties.count }}</p>
+                                <p class="display-5">{{ properties.count }}</p>
                                 <a href="{% url 'list_properties' %}" class="btn btn-primary btn-sm mt-auto">Manage</a>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                         <div class="card text-center w-100 h-100">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Tenants</h5>
-                                <p class="display-4">{{ tenants.count }}</p>  <!-- Display the number of tenants -->
+                                <p class="display-5">{{ tenants.count }}</p>  <!-- Display the number of tenants -->
                                 <a href="{% url 'list_tenants' %}" class="btn btn-primary btn-sm mt-auto">Manage</a>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="card text-center w-100 h-100">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Projected Income</h5>
-                                <p class="display-4">${{ total_projected_income|floatformat:2 }}</p>
+                                <p class="display-5">${{ total_projected_income|floatformat:2 }}</p>
                                 <a href="{% url 'finance:income_list' %}"
                                    class="btn btn-primary btn-sm mt-auto">View</a>
                             </div>
@@ -41,7 +41,7 @@
                         <div class="card text-center w-100 h-100">
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">Total Expenses</h5>
-                                <p class="display-4">${{ total_expenses|floatformat:2 }}</p>
+                                <p class="display-5">${{ total_expenses|floatformat:2 }}</p>
                                 <a href="{% url 'finance:expense_list' %}"
                                    class="btn btn-primary btn-sm mt-auto">View</a>
                             </div>
