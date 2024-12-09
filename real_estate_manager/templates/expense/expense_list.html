@@ -41,7 +41,12 @@
                                 </div>
                                 
                                 <!-- Edit Button for Each Expense -->
-                                <a href="{% url 'finance:update_expense' expense.id %}" class="btn btn-primary btn-sm ml-2">Edit</a>
+                                <div class="ml-2">
+                                    <!-- Edit Button for Each Expense -->
+                                    <a href="{% url 'finance:update_expense' expense.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                    <!-- Delete Button with red color -->
+                                    <a href="{% url 'finance:delete_expense' expense.id %}" class="btn btn-danger btn-sm ml-2">Delete</a>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>

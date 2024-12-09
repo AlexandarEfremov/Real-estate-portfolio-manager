@@ -2,35 +2,44 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h2 class="text-center mb-4">{% if tenant %}Edit{% else %}Create{% endif %} Tenant</h2>
-            <form method="post" enctype="multipart/form-data" class="p-4 shadow-sm rounded bg-light">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                        {{ field|add_class:"form-control" }}
-                        {% if field.help_text %}
-                            <div class="form-text">{{ field.help_text }}</div>
-                        {% endif %}
-                        {% if field.errors %}
-                            <div class="text-danger small">
-                                {{ field.errors|join:", " }}
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-primary w-100">Save</button>
-            </form>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">{% if tenant %}Edit{% else %}Create{% endif %} Tenant</h2>
+                <form method="post" enctype="multipart/form-data" class="p-4 shadow-sm rounded bg-light">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                            {{ field|add_class:"form-control" }}
+                            {% if field.help_text %}
+                                <div class="form-text">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% if field.errors %}
+                                <div class="text-danger small">
+                                    {{ field.errors|join:", " }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <!-- Display any non-field errors as red text -->
+                    {% if form.non_field_errors %}
+                        <div class="text-danger text-center">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <br>
+                    <button type="submit" class="btn btn-primary w-100">Save</button>
+                </form>
 
-            <!-- Back Button -->
-            <div class="text-center mt-3">
-                <button class="btn btn-secondary" onclick="window.history.back();">Go Back</button>
+                <!-- Back Button -->
+                <div class="text-center mt-3">
+                    <button class="btn btn-secondary" onclick="window.history.back();">Go Back</button>
+                </div>
+                <br>
             </div>
-            <br>
         </div>
     </div>
-</div>
 {% endblock %}
