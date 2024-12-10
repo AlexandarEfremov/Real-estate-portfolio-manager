@@ -5,7 +5,19 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <h2 class="text-center mb-4">Welcome to Your Dashboard</h2>
-                <p class="text-center">Manage your real estate portfolio, tenants, and financial records all in one place.</p>
+                <p class="text-center">Manage your real estate portfolio, tenants, and financial records all in one
+                    place.</p>
+
+                <!-- Search Form -->
+                <form method="GET" action="{% url 'async_search' %}">
+                    <div class="input-group mb-4">
+                        <label for="query" class="visually-hidden">Search Properties or Tenants</label>
+                        <input type="text" class="form-control" id="query" name="query"
+                               placeholder="Search Properties or Tenants" value="{{ request.GET.query }}">
+                        <button class="btn btn-primary ms-3" type="submit">Search</button>
+                    </div>
+                </form>
+
 
                 <!-- Portfolio Summary -->
                 <div class="row mb-4">
@@ -48,6 +60,35 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Search Results -->
+                {% if query %}
+                    <div class="mt-4">
+                        <h4>Search Results for "{{ query }}"</h4>
+
+                        {% if properties %}
+                            <h5>Properties</h5>
+                            <ul>
+                                {% for property in properties %}
+                                    <li>{{ property.name }} - {{ property.address }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No properties found.</p>
+                        {% endif %}
+
+                        {% if tenants %}
+                            <h5>Tenants</h5>
+                            <ul>
+                                {% for tenant in tenants %}
+                                    <li>{{ tenant.first_name }} {{ tenant.last_name }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No tenants found.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
             <!-- Back Button -->
             <div class="text-center mt-3">

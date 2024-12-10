@@ -1,9 +1,15 @@
-from django.shortcuts import get_object_or_404
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
-from .models import Property
 from .forms import PropertyForm
+from django.http import JsonResponse
+from django.views import View
+from asgiref.sync import sync_to_async
+from real_estate_manager.properties.models import Property
+from real_estate_manager.tenants.models import Tenant
+import asyncio
 
 # Property Create View (CBV)
 class PropertyCreateView(CreateView):
@@ -54,3 +60,48 @@ class PropertyDetailView(DetailView):
         # Retrieve the property by its pk, assuming it's owned by the logged-in user
         return get_object_or_404(Property, pk=self.kwargs['pk'])
 
+
+class AsyncSearchView(View):
+    async def get(self, request, *args, **kwargs):
+        query = request.GET.get('query', '')
+
+        # Ensure the logged-in user is used for filtering
+        user = request.user
+
+        # Perform the async search for both properties and tenants concurrently, filtered by the logged-in user
+        properties, tenants = await asyncio.gather(
+            self.search_properties(user, query),
+            self.search_tenants(user, query)
+        )
+
+        # Fetch tenant properties using sync_to_async
+        tenant_property_info = await asyncio.gather(
+            *[self.get_tenant_property(tenant) for tenant in tenants]
+        )
+
+        # Attach tenant property info to tenants
+        for idx, tenant in enumerate(tenants):
+            tenant.property_info = tenant_property_info[idx]
+
+        return render(request, 'private/search_results_partial.html', {
+            'properties': properties,
+            'tenants': tenants,
+            'query': query,
+        })
+
+    @sync_to_async
+    def search_properties(self, user, query):
+        # Perform the property search asynchronously for the logged-in user
+        return list(Property.objects.filter(owner=user).filter(name__icontains=query))
+
+    @sync_to_async
+    def search_tenants(self, user, query):
+        # Perform the tenant search asynchronously for the logged-in user
+        return list(Tenant.objects.filter(owner=user).filter(
+            Q(first_name__icontains=query) | Q(last_name__icontains=query)
+        ))
+
+    @sync_to_async
+    def get_tenant_property(self, tenant):
+        # Fetch the related property of the tenant asynchronously
+        return tenant.property.name if tenant.property else None

@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -6,10 +5,9 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView, D
 from .models import Income, Expense
 from .forms import IncomeForm, ExpenseForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from decimal import Decimal
 from ..properties.models import Property
 from ..tenants.models import Tenant
-
 
 class IncomeCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
     model = Income

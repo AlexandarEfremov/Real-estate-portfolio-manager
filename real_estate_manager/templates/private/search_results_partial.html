@@ -1,0 +1,32 @@
+{% if properties %}
+    <h3>Properties</h3>
+    <ul>
+        {% for property in properties %}
+            <li>
+                <strong>{{ property.name }}</strong> <br>
+                Address: {{ property.address }}<br>
+                Type: {{ property.property_type }}<br>
+                Size: {{ property.size }} m²<br>
+                Value: ${{ property.value|floatformat:2 }}<br>
+                ============
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if tenants %}
+    <h3>Tenants</h3>
+    <ul>
+        {% for tenant in tenants %}
+            <li>
+                <strong>{{ tenant.first_name }} {{ tenant.last_name }}</strong><br>
+                Property: {{ tenant.property.name }}<br>
+                Lease Start: {{ tenant.lease_start_date }}<br>
+                Lease End: {{ tenant.lease_end_date }}<br>
+                Monthly Rent: ${{ tenant.monthly_rent|floatformat:2 }}<br>
+                Contact: {{ tenant.contact_info }}<br>
+                ============
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
