@@ -28,7 +28,7 @@
                             </a>
                             
                             <!-- Admin Button -->
-                            {% if user.is_superuser %}
+                            {% if user.is_superuser or user.is_staff %}
                                 <a href="{% url 'admin:index' %}" class="btn btn-secondary mb-3">
                                     Admin Dashboard
                                 </a>
