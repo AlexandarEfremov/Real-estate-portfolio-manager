@@ -1,0 +1,57 @@
+{% extends 'common/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">ROI Calculator</h2>
+                <p class="text-center text-muted">Calculate the return on investment for your real estate property with
+                    ease.</p>
+
+                <!-- Display Errors -->
+                {% if errors %}
+                    <div class="alert alert-danger text-center" role="alert">
+                        <ul class="mb-0">
+                            {% for field, error_list in errors.items %}
+                                <li><strong>{{ field }}:</strong> {{ error_list|join:", " }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <!-- ROI Form -->
+                <form method="post" class="p-4 shadow-sm rounded bg-light">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="purchase_price" class="form-label">Purchase Price</label>
+                        <input type="number" class="form-control" id="purchase_price" name="purchase_price"
+                               value="{{ data.purchase_price|default:'' }}" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="monthly_rent" class="form-label">Monthly Rent</label>
+                        <input type="number" class="form-control" id="monthly_rent" name="monthly_rent"
+                               value="{{ data.monthly_rent|default:'' }}" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="annual_expenses" class="form-label">Annual Expenses</label>
+                        <input type="number" class="form-control" id="annual_expenses" name="annual_expenses"
+                               value="{{ data.annual_expenses|default:'' }}" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Calculate ROI</button>
+                </form>
+
+                <!-- ROI Result -->
+                {% if roi %}
+                    <div class="mt-4 text-center">
+                        <h3 class="text-success">Calculated ROI: <strong>{{ roi|floatformat:2 }}%</strong></h3>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- Back Button -->
+            <div class="text-center mt-3">
+                <button class="btn btn-secondary" onclick="window.history.back();">Go Back</button>
+            </div>
+            <br>
+        </div>
+    </div>
+{% endblock %}

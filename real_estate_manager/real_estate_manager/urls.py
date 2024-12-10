@@ -23,6 +23,7 @@ from real_estate_manager import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("real_estate_manager.accounts.urls")),
+    path("api/", include("real_estate_manager.calculator_api.urls")),
     path("properties/", include("real_estate_manager.properties.urls")),
     path('tenants/', include('real_estate_manager.tenants.urls')),
     # Income URLs (for income related views)

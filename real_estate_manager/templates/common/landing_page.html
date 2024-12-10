@@ -3,62 +3,67 @@
 {% block title %}Welcome to Real Estate Manager{% endblock %}
 
 {% block content %}
-    <div class="container-fluid p-0 d-flex flex-column" style="height: 100%; overflow-x: hidden;">
-        {% if user.is_authenticated %}
-            <div class="container text-center mt-5">
-                <!-- Content for logged-in users -->
-                <h1 class="display-4 mb-3">Welcome back, {{ user.username }}!</h1>
-                <p class="lead mb-4">You can manage your properties, view your investments, and more.</p>
+<div class="container-fluid p-0 d-flex flex-column" style="height: 100%; overflow-x: hidden;">
+    {% if user.is_authenticated %}
+        <div class="container text-center mt-5">
+            <!-- Content for logged-in users -->
+            <h1 class="display-4 mb-3">Welcome back, {{ user.username }}!</h1>
+            <p class="lead mb-4">You can manage your properties, view your investments, and more.</p>
 
-                <div class="row d-flex flex-column align-items-center">
-                    <!-- Options Section -->
-                    <div class="col-md-6">
-                        <div class="list-group">
-                            <a href="{% url 'private_landing' %}" class="btn btn-primary mb-3">
-                                Go to Dashboard
+            <div class="row d-flex flex-column align-items-center">
+                <!-- Options Section -->
+                <div class="col-md-6">
+                    <div class="list-group">
+                        <a href="{% url 'private_landing' %}" class="btn btn-primary mb-3">
+                            Go to Dashboard
+                        </a>
+                        <a href="{% url 'create_property' %}" class="btn btn-outline-primary mb-3">
+                            Add Property
+                        </a>
+                        <a href="{% url 'create_tenant' %}" class="btn btn-outline-primary mb-3">
+                            Add Tenant
+                        </a>
+                        <a href="{% url 'finance:create_expense' %}" class="btn btn-outline-primary mb-3">
+                            Add Expense
+                        </a>
+                        
+                        <!-- ROI Calculator Button -->
+                        <a href="{% url 'investment-calculator' %}" class="btn btn-outline-primary mb-3">
+                            ROI Calculator
+                        </a>
+                        
+                        <!-- Admin Button -->
+                        {% if user.is_superuser or user.is_staff %}
+                            <a href="{% url 'admin:index' %}" class="btn btn-secondary mb-3">
+                                Admin Dashboard
                             </a>
-                            <a href="{% url 'create_property' %}" class="btn btn-outline-primary mb-3">
-                                Add Property
-                            </a>
-                            <a href="{% url 'create_tenant' %}" class="btn btn-outline-primary mb-3">
-                                Add Tenant
-                            </a>
-                            <a href="{% url 'finance:create_expense' %}" class="btn btn-outline-primary mb-3">
-                                Add Expense
-                            </a>
-                            
-                            <!-- Admin Button -->
-                            {% if user.is_superuser or user.is_staff %}
-                                <a href="{% url 'admin:index' %}" class="btn btn-secondary mb-3">
-                                    Admin Dashboard
-                                </a>
-                            {% endif %}
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-        {% else %}
-            <div class="container text-center mt-5">
-                <!-- Content for non-logged-in users -->
-                <h1 class="display-4">Welcome to Real Estate Manager</h1>
-                <p class="lead">Your one-stop solution for managing your real estate portfolio.</p>
+        </div>
+    {% else %}
+        <div class="container text-center mt-5">
+            <!-- Content for non-logged-in users -->
+            <h1 class="display-4">Welcome to Real Estate Manager</h1>
+            <p class="lead">Your one-stop solution for managing your real estate portfolio.</p>
 
-                <div class="row d-flex flex-column align-items-center">
-                    <!-- Options Section -->
-                    <div class="col-md-6">
-                        <div class="d-flex justify-content-center gap-3">
-                            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login</a>
-                            <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">Sign Up</a>
-                        </div>
-                    </div>
-
-                    <!-- Image Section -->
-                    <div class="col-md-6 mt-4">
-                        <img src="{% static 'neighbourhood.jpg' %}" class="img-fluid" alt="No Image Available" style="width: 76%; height: 76%; object-fit: cover;">
+            <div class="row d-flex flex-column align-items-center">
+                <!-- Options Section -->
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login</a>
+                        <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">Sign Up</a>
                     </div>
                 </div>
+
+                <!-- Image Section -->
+                <div class="col-md-6 mt-4">
+                    <img src="{% static 'neighbourhood.jpg' %}" class="img-fluid" alt="No Image Available" style="width: 76%; height: 76%; object-fit: cover;">
+                </div>
             </div>
-        {% endif %}
-        <br>
-    </div>
+        </div>
+    {% endif %}
+    <br>
+</div>
 {% endblock %}
