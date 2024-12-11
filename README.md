@@ -64,7 +64,7 @@ real_estate_manager/
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/real-estate-portfolio-manager.git
+    git clone https://github.com/AlexandarEfremov/real-estate-portfolio-manager.git
     cd real-estate-portfolio-manager
     ```
 
