@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-3jnz&%$x=r$ba4fbb4ne2wb=uu*wijphly)qg91_c5utuyd!_x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["realestateportfolio-ayd4emefcze8bcgf.italynorth-01.azurewebsites.net"]
 
 
 # Application definition
