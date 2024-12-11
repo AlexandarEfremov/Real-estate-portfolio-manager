@@ -11,18 +11,16 @@ from real_estate_manager.properties.models import Property
 class PropertyModelTest(TestCase):
 
     def setUp(self):
-        # Create a test user (owner)
         self.user = get_user_model().objects.create_user(
             username="testuser",
             email="testuser@example.com",
             password="testpassword"
         )
 
-        # Create a property for the test user
         self.property = Property.objects.create(
             name="Test Property",
             address="123 Test St",
-            property_type="House",  # Valid property type
+            property_type="House",
             size=Decimal('150.00'),
             purchase_date=timezone.now().date(),
             value=Decimal('500000.00'),
@@ -46,7 +44,6 @@ class PropertyModelTest(TestCase):
 
     def test_valid_property_types(self):
         """Test that only valid property types are accepted."""
-        # Test valid property types
         valid_types = ['Condo', 'Apartment', 'House']
         for property_type in valid_types:
             property_instance = Property(
@@ -67,23 +64,21 @@ class PropertyModelTest(TestCase):
             property_instance = Property(
                 name="Invalid Property",
                 address="123 Invalid St",
-                property_type="InvalidType",  # Invalid property type
+                property_type="InvalidType",
                 size=Decimal('100.00'),
                 purchase_date=timezone.now().date(),
                 value=Decimal('200000.00'),
                 owner=self.user
             )
-            property_instance.full_clean()  # This triggers validation
-            property_instance.save()  # This will raise ValidationError if invalid
+            property_instance.full_clean()
+            property_instance.save()
 
     def test_property_meta_options(self):
         """Test that the meta options verbose_name and verbose_name_plural are set correctly."""
-        # Check the verbose_name and verbose_name_plural meta options
         self.assertEqual(str(Property._meta.verbose_name), "Property")
         self.assertEqual(str(Property._meta.verbose_name_plural), "Properties")
 
     def test_foreign_key_relationship_with_user(self):
         """Test the ForeignKey relationship between Property and User."""
-        # Test that the owner is correctly linked to the property
         self.assertEqual(self.property.owner, self.user)
-        self.assertIn(self.property, self.user.properties.all())  # Check reverse relation
+        self.assertIn(self.property, self.user.properties.all())
