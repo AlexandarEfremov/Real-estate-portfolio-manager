@@ -4,7 +4,6 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from .forms import PropertyForm
-from django.http import JsonResponse
 from django.views import View
 from asgiref.sync import sync_to_async
 from real_estate_manager.properties.models import Property
