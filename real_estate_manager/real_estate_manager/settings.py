@@ -11,12 +11,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
-from dotenv import load_dotenv
-load_dotenv()
-db_username = os.getenv("DB_USERNAME")
-db_password = os.getenv("DB_PASSWORD")
-db_host = os.getenv("DB_HOST")
-db_name = os.getenv("DB_NAME")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -90,10 +84,10 @@ WSGI_APPLICATION = 'real_estate_manager.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": db_name,
-        "USER": db_username,
-        "PASSWORD": db_password,
-        "HOST": db_host,
+        "NAME": "realestateportfolio-database",
+        "USER": "blbxgqebgh",
+        "PASSWORD": "xpuOg4h$3dVgKRG3",
+        "HOST": "realestateportfolio-server.postgres.database.azure.com",
         "PORT": "5432",
     }
 }
