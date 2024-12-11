@@ -1,6 +1,6 @@
 # Real Estate Portfolio Manager
 
-![image](https://github.com/user-attachments/assets/c0e68119-ea38-46c6-a4c3-2bfeb529d0b1)
+<img src="https://github.com/user-attachments/assets/c0e68119-ea38-46c6-a4c3-2bfeb529d0b1" alt="Real Estate Manager Banner" width="650"/>
 
 
 ## Overview
