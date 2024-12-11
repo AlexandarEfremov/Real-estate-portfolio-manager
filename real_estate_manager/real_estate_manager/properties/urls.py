@@ -1,4 +1,3 @@
-# properties/urls.py
 from django.urls import path
 from .views import PropertyListView, PropertyCreateView, PropertyUpdateView, PropertyDeleteView, PropertyDetailView, \
     AsyncSearchView

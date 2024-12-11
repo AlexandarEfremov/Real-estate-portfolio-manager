@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'real_estate_manager.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DATABASE_NAME"),
-        "USER": os.getenv("DATABASE_USER"),
-        "PASSWORD": os.getenv("DATABASE_PASSWORD"),
-        "HOST": os.getenv("DATABASE_HOST"),
+        "NAME": "portfolio_db",
+        "USER": "postgres",
+        "PASSWORD": "admin",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }

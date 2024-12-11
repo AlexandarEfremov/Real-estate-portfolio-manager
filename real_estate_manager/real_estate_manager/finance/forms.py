@@ -18,7 +18,6 @@ class IncomeForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         if user:
-            # Filter tenants to only those belonging to the logged-in user
             self.fields['tenant'].queryset = Tenant.objects.filter(owner=user)
 
 
@@ -40,8 +39,6 @@ class ExpenseForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         if user:
-            # Filter properties to only those owned by the user
             self.fields['property'].queryset = Property.objects.filter(owner=user)
 
-            # Filter tenants to only those related to the user's properties
             self.fields['tenant'].queryset = Tenant.objects.filter(property__owner=user)

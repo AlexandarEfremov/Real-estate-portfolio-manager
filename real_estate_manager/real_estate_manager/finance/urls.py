@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'finance'  # This should match the app_name used in the template
+app_name = 'finance'
 
 urlpatterns = [
     # Income URLs

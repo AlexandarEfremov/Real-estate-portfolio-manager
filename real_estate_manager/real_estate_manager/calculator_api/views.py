@@ -23,23 +23,19 @@ class ROICalculatorPageView(TemplateView):
     template_name = 'calculator_api/roi_calculator.html'
 
     def post(self, request, *args, **kwargs):
-        # Get user input from the form
         purchase_price = request.POST.get('purchase_price')
         monthly_rent = request.POST.get('monthly_rent')
         annual_expenses = request.POST.get('annual_expenses')
 
-        # Validate and send data to API
         data = {
             "purchase_price": purchase_price,
             "monthly_rent": monthly_rent,
             "annual_expenses": annual_expenses,
         }
 
-        # Simulate API call by using the serializer directly (optional)
         serializer = InvestmentCalculatorSerializer(data=data)
         if serializer.is_valid():
             roi = serializer.calculate_roi()
             return render(request, self.template_name, {"roi": roi, "data": data})
 
-        # If errors occur, render them on the form
         return render(request, self.template_name, {"errors": serializer.errors, "data": data})

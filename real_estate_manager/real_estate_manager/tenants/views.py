@@ -175,22 +175,4 @@ class TenantDeleteView(LoginRequiredMixin, DeleteView):
         return reverse_lazy('list_tenants')
 
 
-class ProjectedIncomeView(LoginRequiredMixin, TemplateView):
-    template_name = 'tenants/projected_income.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        tenant_id = self.kwargs['pk']  # The tenant ID from the URL
-        tenant = get_object_or_404(Tenant, pk=tenant_id, owner=self.request.user)
-
-        # Fetch the latest income record for the tenant
-        income = Income.objects.filter(tenant=tenant).latest('date')  # Assuming a tenant has at least one income record
-
-        context.update({
-            'tenant': tenant,
-            'projected_income': income.projected_income.quantize(Decimal('0.00')),  # Ensure two decimals
-            'remaining_days': tenant.calculate_remaining_days(),  # Define this method in Tenant for remaining days
-            'progress_percentage': tenant.calculate_progress_percentage(),  # Define this method for percentage
-            'lease_duration': tenant.lease_end_date - tenant.lease_start_date,
-        })
-        return context

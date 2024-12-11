@@ -20,7 +20,7 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'user_type')}),  # Add user_type to the form
+        ('Personal info', {'fields': ('first_name', 'last_name', 'user_type')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
@@ -28,7 +28,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'user_type')  # Add user_type to the add form
+            'fields': ('email', 'password1', 'password2', 'user_type')
         }),
     )
 
@@ -38,15 +38,11 @@ def setup_admin_groups(sender, **kwargs):
     Automatically create Superusers and Staff groups with appropriate permissions after migrations.
     """
     # Define permissions for each group
-    superuser_permissions = Permission.objects.all()  # Superusers get all permissions
+    superuser_permissions = Permission.objects.all()
     staff_permissions = [
-        # Custom User model permissions
         'view_customuser', 'add_customuser', 'change_customuser',
-        # Property permissions
         'view_property', 'add_property', 'change_property',
-        # Tenant permissions
         'view_tenant',
-        # Finance permissions
         'view_expense', 'add_expense', 'view_income', 'add_income',
     ]
 
@@ -57,7 +53,7 @@ def setup_admin_groups(sender, **kwargs):
 
     # Create or update the Staff group
     staff_group, created = Group.objects.get_or_create(name="Staff")
-    staff_group.permissions.clear()  # Clear any existing permissions
+    staff_group.permissions.clear()
     for codename in staff_permissions:
         try:
             permission = Permission.objects.get(codename=codename)

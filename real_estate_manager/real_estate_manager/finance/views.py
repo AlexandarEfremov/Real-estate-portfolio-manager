@@ -20,7 +20,7 @@ class IncomeCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
         return None
 
     def form_valid(self, form):
-        form.instance.user = self.request.user  # Ensure income is linked to logged-in user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -53,7 +53,6 @@ class ExpenseCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if 'form' in context:
-            # Pass the current user to the form so that it filters the tenants and properties accordingly
             context['form'].fields['tenant'].queryset = Tenant.objects.filter(owner=self.request.user)
             context['form'].fields['property'].queryset = Property.objects.filter(owner=self.request.user)
         return context
@@ -74,34 +73,27 @@ class IncomeListView(LoginRequiredMixin, ListView):
     context_object_name = 'tenant_incomes'
 
     def get_queryset(self):
-        # Fetch all income records for the logged-in user
         return Income.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Fetch tenants whose properties belong to the current user
         tenants = Tenant.objects.filter(property__owner=self.request.user)
 
         total_projected_income = Decimal(0)
 
-        # Loop through tenants and calculate their projected income
         for tenant in tenants:
             lease_start = tenant.lease_start_date
             lease_end = tenant.lease_end_date
 
-            # Calculate total days in the lease
             lease_duration = lease_end - lease_start
             total_days = lease_duration.days
 
-            # Calculate daily rent (divide by 30 for simplicity)
             daily_rent = Decimal(tenant.monthly_rent) / Decimal(30)
 
-            # Add the projected income for this tenant
             projected_income = daily_rent * Decimal(total_days)
             total_projected_income += projected_income
 
-        # Add to the context the total projected income for the user
         context['total_income'] = total_projected_income
 
         return context
@@ -123,13 +115,11 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     context_object_name = 'expenses'
 
     def get_queryset(self):
-        # Filter expense records for the logged-in user
         return Expense.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Calculate total expenses
         total_expenses = context['expenses'].aggregate(total=Sum('amount'))['total'] or 0
         context['total_expenses'] = total_expenses
 

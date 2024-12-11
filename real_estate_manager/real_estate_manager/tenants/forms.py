@@ -40,12 +40,10 @@ class TenantForm(forms.ModelForm):
         """
         Custom initialization to filter the properties available to the current user.
         """
-        # Get the user argument from kwargs
-        user = kwargs.pop('user')  # Default to None if 'user' is not passed
+        user = kwargs.pop('user')
 
         super().__init__(*args, **kwargs)
 
-        # If the user is provided, filter the properties queryset
         if user:
             self.fields['property'].queryset = user.properties.all()
 
@@ -58,11 +56,9 @@ class TenantForm(forms.ModelForm):
         lease_end_date = cleaned_data.get('lease_end_date')
 
         if lease_start_date and lease_end_date:
-            # Validate that lease_end_date is after lease_start_date
             if lease_end_date <= lease_start_date:
                 raise ValidationError('Lease end date must be after the lease start date.')
 
-            # Validate that the lease duration is at least 30 days
             lease_duration = (lease_end_date - lease_start_date).days
             if lease_duration < 30:
                 raise ValidationError('The lease duration must be at least 30 days.')
