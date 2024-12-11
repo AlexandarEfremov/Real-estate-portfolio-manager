@@ -65,7 +65,7 @@ real_estate_manager/
 1. Clone the repository:
     ```bash
     git clone https://github.com/AlexandarEfremov/Real-estate-portfolio-manager.git
-    cd real-estate-portfolio-manager
+    cd Real-estate-portfolio-manager
     ```
 
 2. Create and activate a virtual environment:
