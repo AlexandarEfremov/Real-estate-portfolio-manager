@@ -30,3 +30,9 @@
         {% endfor %}
     </ul>
 {% endif %}
+
+{% if not properties or not tenants%}
+
+<h2>No results found...</h2>
+
+{% endif %}

@@ -135,7 +135,7 @@ class TenantEditView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("finance:income_list")
+        return reverse_lazy("private_landing")
 
 
 class TenantDeleteView(LoginRequiredMixin, DeleteView):
