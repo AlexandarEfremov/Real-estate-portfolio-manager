@@ -63,7 +63,6 @@ class Expense(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField()
     property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name="expense_records")
-    tenant = models.ForeignKey('tenants.Tenant', on_delete=models.SET_NULL, null=True, blank=True, related_name="expense_records")
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     description = models.TextField(blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="expense_records")

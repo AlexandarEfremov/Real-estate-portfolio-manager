@@ -53,7 +53,6 @@ class ExpenseCreateUpdateView(LoginRequiredMixin, CreateView, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if 'form' in context:
-            context['form'].fields['tenant'].queryset = Tenant.objects.filter(owner=self.request.user)
             context['form'].fields['property'].queryset = Property.objects.filter(owner=self.request.user)
         return context
 
