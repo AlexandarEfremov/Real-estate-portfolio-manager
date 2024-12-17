@@ -2,6 +2,11 @@
 
 <img src="https://github.com/user-attachments/assets/c0e68119-ea38-46c6-a4c3-2bfeb529d0b1" alt="Real Estate Manager Banner" width="650"/>
 
+### Deployed Version
+
+If you'd like to access the live version of the application, you can visit the deployed instance at:
+
+[Real Estate Portfolio Manager (Deployed Version)](https://realestatemanager-g5d4cvbqc2e3hzek.italynorth-01.azurewebsites.net/)
 
 ## Overview
 
